@@ -14,9 +14,7 @@ module.exports = {
   },
   create: function(req, res) {
     db.Client.create(req.body)
-      .then(dbClient => { 
-        return db.Trainer.findOneAndUpdate(_id: <trainer id> ), {$push: { sessions: <client id>}}, { new: true }
-      }.then(dbTrainer => res.json(dbTrainer))
+      .then(dbClient => res.json(dbClient))
       .catch(err => res.status(422).json(err));
       console.log(req.body);
   },
