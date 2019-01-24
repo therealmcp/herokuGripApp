@@ -20,7 +20,7 @@ var TrainerSchema = new Schema({
     type: String,
     required: true
   },
-  sessions: [{
+  clients: [{
     type: Schema.Types.ObjectId,
     ref: "Clients"
   }]

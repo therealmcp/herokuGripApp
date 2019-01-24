@@ -20,7 +20,7 @@ var ClientSchema = new Schema({
     type: Date,
     required: true
   },
-  gender: {
+  sex: {
     type: String,
     required: true
   },
@@ -49,6 +49,10 @@ var ClientSchema = new Schema({
   },
   image: {
     type: String
+  },
+  trainer: {
+    type: Schema.Types.ObjectId,
+    ref: "Trainer"
   },
   sessions: [{
     type: Schema.Types.ObjectId,

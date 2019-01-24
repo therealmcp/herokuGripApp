@@ -14,7 +14,12 @@ module.exports = {
   },
   create: function(req, res) {
     db.Client.create(req.body)
-      .then(dbClient => res.json(dbClient))
+    // console.log(req.body)
+      .then(function(dbClient) {
+        console.log(dbClient)
+        return db.Trainer.findOneAndUpdate({ _id: dbClient.trainer }, {$push: { clients: dbClient._id }}, { new: true })})
+      .then(function(dbTrainer) { res.json(dbTrainer) })
+      // console.log("---dbTrainer---", dbTrainer)
       .catch(err => res.status(422).json(err));
       console.log(req.body);
   },
