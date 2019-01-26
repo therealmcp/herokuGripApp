@@ -84,7 +84,7 @@ router.post('/signup', (req, res) => {
 	const { email, password, firstName, lastName, photo } = req.body
 	console.log("REQ.BODY: ", req.body)
 	// ADD VALIDATION
-	db.User.findOne({ 'local.email': email }, (err, userMatch) => {
+	User.findOne({ 'local.email': email }, (err, userMatch) => {
 		if (userMatch) {
 			return res.json({
 				error: `Sorry, already a user with the email: ${email}`
