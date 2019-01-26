@@ -8,14 +8,14 @@ const userSchema = new Schema({
   local: {
     email: {
       type: String,
-      unique: false,
-      required: false
+      unique: true,
+      required: true
     },
     password: {
       type:
         String,
       unique: false,
-      required: false
+      required: true
     }
   },
   firstName: {
