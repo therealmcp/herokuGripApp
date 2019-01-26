@@ -17,10 +17,10 @@ module.exports = {
       // console.log(req.body)
       .then(function (dbClient) {
         console.log(dbClient)
-        return db.Trainer.findOneAndUpdate({ _id: dbClient.trainer }, { $push: { clients: dbClient._id } }, { new: true })
+        return db.User.findOneAndUpdate({ _id: dbClient.user }, { $push: { clients: dbClient._id } }, { new: true })
       })
-      .then(function (dbTrainer) { res.json(dbTrainer) })
-      // console.log("---dbTrainer---", dbTrainer)
+      .then(function (dbUser) { res.json(dbUser) })
+      // console.log("---dbUser---", dbUser)
       .catch(err => res.status(422).json(err));
     console.log(req.body);
   },
