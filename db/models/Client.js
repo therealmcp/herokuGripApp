@@ -42,9 +42,9 @@ var ClientSchema = new Schema({
   image: {
     type: String
   },
-  trainer: {
+  user: {
     type: Schema.Types.ObjectId,
-    ref: "Trainer"
+    ref: "User"
   },
   sessions: [{
     type: Schema.Types.ObjectId,
