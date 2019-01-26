@@ -9,7 +9,7 @@ module.exports = {
   },
   findById: function(req, res) {
     // db.Trainer.findById(req.params.id)
-    db.Trainer.findOne({_id: trainerid})
+    db.User.findOne({_id: userid})
     console.log("-----REQ----", req)
     .populate("clients")
     .then((res) => {
@@ -19,7 +19,7 @@ module.exports = {
       // .then(dbListRes => {
   
       // })
-      .then(dbTrainer => res.json(dbTrainer))
+      .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
     });
   },
