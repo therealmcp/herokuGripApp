@@ -17,7 +17,7 @@ module.exports = {
       // console.log(req.body)
       .then(function (dbClient) {
         console.log(dbClient)
-        return db.Trainer.findOneAndUpdate({ _id: dbClient.trainer }, { $push: { clients: dbClient._id } }, { new: true })
+        return db.Trainer.findOneAndUpdate({ _id: dbClient.trainer }, { $push: { client: dbClient._id } }, { new: true })
       })
       .then(function (dbTrainer) { res.json(dbTrainer) })
       // console.log("---dbTrainer---", dbTrainer)
