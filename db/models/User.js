@@ -49,9 +49,9 @@ const userSchema = new Schema({
   // },
   // firstName: { type: String },
   // lastName: { type: String }
-  client: [{
+  clients: [{
     type: Schema.Types.ObjectId,
-    ref: "Clients"
+    ref: "Client"
   }]
 })
 
