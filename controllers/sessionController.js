@@ -14,8 +14,15 @@ module.exports = {
   },
   create: function (req, res) {
     db.Session.create(req.body)
-      .then(dbSession => res.json(dbSession))
+      // console.log(req.body)
+      .then(function (dbSession) {
+        console.log(dbSession)
+        return db.Client.findOneAndUpdate({ _id: dbSession.client }, { $push: { sessions: dbSession._id } }, { new: true })
+      })
+      .then(function (dbClient) { res.json(dbClient) })
+      // console.log("---dbClient---", dbClient)
       .catch(err => res.status(422).json(err));
+    console.log(req.body);
   },
   update: function (req, res) {
     db.Session.findOneAndUpdate({ id: req.params.id }, req.body)
