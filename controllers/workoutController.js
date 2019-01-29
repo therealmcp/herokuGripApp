@@ -14,6 +14,10 @@ module.exports = {
   },
   create: function (req, res) {
     db.Workout.create(req.body)
+    .then(function (dbWorkout) {
+      console.log(dbWorkout)
+      return db.User.findOneAndUpdate({ _id: dbWorkout.user }, { $push: { workouts: dbWorkout._id } }, { new: true })
+    })
       .then(dbWorkout => res.json(dbWorkout))
       .catch(err => res.status(422).json(err));
   },
