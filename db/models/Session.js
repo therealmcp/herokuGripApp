@@ -22,10 +22,14 @@ var SessionSchema = new Schema({
   notes: {
     type: String,
   },
-  workouts: {
+  client: {
+    type: Schema.Types.ObjectId,
+    ref: "Client"
+  },
+  workouts: [{
     type: Schema.Types.ObjectId,
     ref: "Workouts"
-  }
+  }]
 });
 
 // This creates our model from the above schema, using mongoose's model method
