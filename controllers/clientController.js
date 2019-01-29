@@ -19,7 +19,7 @@ module.exports = {
         console.log(dbClient)
         return db.User.findOneAndUpdate({ _id: dbClient.user }, { $push: { clients: dbClient._id } }, { new: true })
       })
-      .then(function (dbUser) { return res.json(dbUser) })
+      .then(function (dbUser) { res.json(dbUser) })
       // console.log("---dbUser---", dbUser)
       .catch(err => res.status(422).json(err));
     console.log(req.body);
