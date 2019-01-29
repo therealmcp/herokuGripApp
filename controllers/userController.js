@@ -8,20 +8,17 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    // db.Trainer.findById(req.params.id)
-    db.User.findOne({_id: userid})
-    console.log("-----REQ----", req)
+    db.User.findById(req.params.id)
     .populate("clients")
     .then((res) => {
-      console.log("clients res: ", res)
-      // db.Client.find({_id: {$in: res.client.sessions}})
+      console.log("clients res: --------", res)
+      db.Client.find({ _id: {$in: res.clients.sessions} })
       .populate("sessions")
-      // .then(dbListRes => {
-  
-      // })
-      .then(dbUser => res.json(dbUser))
-      .catch(err => res.status(422).json(err));
-    });
+      return res
+    })
+    .then(dbUser => {res.json(dbUser)
+    })
+    .catch(err => res.status(422).json(err));
   },
   create: function (req, res) {
     db.User.create(req.body)
