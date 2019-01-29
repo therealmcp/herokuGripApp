@@ -7,10 +7,19 @@ module.exports = {
       .then(dbClient => res.json(dbClient))
       .catch(err => res.status(422).json(err));
   },
-  findById: function (req, res) {
+  findById: function(req, res) {
+    console.log(req.params)
     db.Client.findById(req.params.id)
-      .then(dbClient => res.json(dbClient))
-      .catch(err => res.status(422).json(err));
+    .populate("Sessions")
+    .then((res) => {
+      console.log("sessions res: --------", res)
+      db.Session.find({ _id: {$in: res.sessions.workouts} })
+      .populate("Workouts")
+      return res
+    })
+    .then(dbClient => {res.json(dbClient)
+    })
+    .catch(err => res.status(422).json(err));
   },
   create: function (req, res) {
     db.Client.create(req.body)
