@@ -25,7 +25,7 @@ var ClientSchema = new Schema({
     required: true
   },
   height: {
-    type: Number,
+    type: String,
     required: true
   },
   notes: {
@@ -36,7 +36,7 @@ var ClientSchema = new Schema({
     // required: true
   },
   emergencyNumber: {
-    type: Number,
+    type: String,
     // required: true
   },
   image: {
@@ -48,7 +48,7 @@ var ClientSchema = new Schema({
   },
   sessions: [{
     type: Schema.Types.ObjectId,
-    ref: "Sessions"
+    ref: "Session"
   }]
 });
 
