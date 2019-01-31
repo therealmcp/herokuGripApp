@@ -11,22 +11,27 @@ module.exports = {
     db.Client.findById(req.params.id)
     .populate("sessions")
     // .populate("workouts")
-    .then((res) => {
-      // console.log("sessions res: --------", res)
-      // console.log("res", res.sessions[2])
-      var workouts = res.sessions.map(session => {
+    .then((dbSession) => {
+      var clientData = dbSession.sessions;
+      console.log("sessions dbSession: --------", dbSession)
+      // console.log("dbSession", dbSession.sessions[2])
+      var workouts = clientData.map(session => {
         // console.log("session", session)
         return db.Session.find( { _id: session._id } )
         .populate("workouts")
         .then(workout => {
-          return workout
+          return workout 
         })
       })
-      return Promise.all(workouts).then(clientWorkouts => {return clientWorkouts})
+      // console.log("dbSession..........", dbSession)
+      return Promise.all(workouts).then(clientWorkouts => {
+        return { clientWorkouts, dbSession }
+      })
     })
-    .then(dbClient => {
-      res.json(dbClient)
-      // console.log("dbClient", dbClient)
+    .then(workouts => {
+      // console.log("CLIENT DATA", clientData)
+      res.json(workouts)
+      // console.log("dbCient", dbClient)
     })
     .catch(err => res.status(422).json(err));
   },
