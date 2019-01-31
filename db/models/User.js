@@ -26,29 +26,10 @@ const userSchema = new Schema({
     type: String,
     unique: false
   },
-  // userType: {
-  //   user: Boolean
-  // },
-  // google: {
-  //   googleId: {
-  //     type: String,
-  //     required: false
-  //   }
-  // },
   photo: {
     type: String,
     required: false
   },
-  // local: {
-  // 	email: { type: String, unique: true },
-  // 	password: { type: String }
-  // },
-  // google: {
-  // 	id: { type: String },
-  // 	photos: []
-  // },
-  // firstName: { type: String },
-  // lastName: { type: String }
   clients: [{
     type: Schema.Types.ObjectId,
     ref: "Client"

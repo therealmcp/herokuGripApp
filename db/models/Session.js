@@ -28,7 +28,7 @@ var SessionSchema = new Schema({
   },
   workouts: [{
     type: Schema.Types.ObjectId,
-    ref: "Workouts"
+    ref: "Workout"
   }]
 });
 

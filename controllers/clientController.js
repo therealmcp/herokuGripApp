@@ -8,16 +8,25 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    console.log(req.params)
     db.Client.findById(req.params.id)
-    .populate("Sessions")
+    .populate("sessions")
+    // .populate("workouts")
     .then((res) => {
-      console.log("sessions res: --------", res)
-      db.Session.find({ _id: {$in: res.sessions.workouts} })
-      .populate("Workouts")
-      return res
+      // console.log("sessions res: --------", res)
+      // console.log("res", res.sessions[2])
+      var workouts = res.sessions.map(session => {
+        // console.log("session", session)
+        return db.Session.find( { _id: session._id } )
+        .populate("workouts")
+        .then(workout => {
+          return workout
+        })
+      })
+      return Promise.all(workouts).then(clientWorkouts => {return clientWorkouts})
     })
-    .then(dbClient => {res.json(dbClient)
+    .then(dbClient => {
+      res.json(dbClient)
+      // console.log("dbClient", dbClient)
     })
     .catch(err => res.status(422).json(err));
   },

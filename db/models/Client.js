@@ -48,7 +48,7 @@ var ClientSchema = new Schema({
   },
   sessions: [{
     type: Schema.Types.ObjectId,
-    ref: "Sessions"
+    ref: "Session"
   }]
 });
 
