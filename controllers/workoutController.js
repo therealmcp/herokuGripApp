@@ -16,7 +16,7 @@ module.exports = {
     db.Workout.create(req.body)
     .then(function (dbWorkout) {
       console.log(dbWorkout)
-      return db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { workouts: dbWorkout._id } }, { new: true })
+      return db.Session.findOneAndUpdate({ _id: req.params.id }, { $push: { workouts: dbWorkout._id } }, { new: true })
     })
       .then(dbWorkout => res.json(dbWorkout))
       .catch(err => res.status(422).json(err));
@@ -25,7 +25,7 @@ module.exports = {
     db.Workout.create(req.body)
     .then(function (dbWorkout) {
       console.log(dbWorkout)
-      return db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { workouts: dbWorkout._id } }, { new: true })
+      return db.Session.findOneAndUpdate({ _id: req.params.id }, { $push: { workouts: dbWorkout._id } }, { new: true })
     })
       .then(dbWorkout => res.json(dbWorkout))
       .catch(err => res.status(422).json(err));
