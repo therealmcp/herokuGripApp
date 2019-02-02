@@ -11,11 +11,10 @@ module.exports = {
     db.User.findById(req.params.id)
     .populate("clients")
     .then((res) => {
-      console.log("clients res: --------", res)
-      db.Client.find({ _id: {$in: res.clients.sessions} })
+      // console.log("clients res: --------", res)
+      return db.Client.find({ _id: {$in: res.clients.sessions} })
       .populate("sessions")
       // .sort({'date': 1})
-      return res
     })
     .then(dbUser => {res.json(dbUser)
     })
