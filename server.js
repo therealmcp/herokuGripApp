@@ -7,7 +7,8 @@ const morgan = require('morgan')
 const session = require('express-session')
 const mongoose = require("mongoose");
 const MongoStore = require('connect-mongo')(session)
-const dbConnection = require('./db') // loads our connection to the mongo database
+// loads our connection to the mongo database
+const dbConnection = require('./db') 
 const routes = require("./routes");
 const passport = require('./passport')
 const app = express()
@@ -33,6 +34,7 @@ app.use(
 // Configure body parsing for AJAX requests
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 // Serve up static assets
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
