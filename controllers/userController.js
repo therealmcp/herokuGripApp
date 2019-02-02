@@ -29,7 +29,7 @@ module.exports = {
       // console.log("dbSession..........", dbSession)
       return Promise.all(clients).then(client => {
         console.log(client[0])
-        return client[0]
+        return client;
       })
     })
     .then(data => {
