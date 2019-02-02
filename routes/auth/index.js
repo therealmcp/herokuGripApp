@@ -50,15 +50,16 @@ router.post('/login',
 		// }
 		// console.log(cleanUser)
 		User.findOne({ 'local.email': req.body.email }, (err, userMatch) => {
+			console.log("USER MATCH", userMatch)
 			if (err) {
 				console.log("Login error", err)
-				return res.status(404).send("Not found")
+				res.status(404).send("Not found")
 			}
 			if (!userMatch) {
-				return res.json(null, false, { message: 'Incorrect email' })
+				res.json(null, false, { message: 'Incorrect email' })
 			}
 			if (!userMatch.checkPassword(req.body.password)) {
-				return res.json(null, false, { message: 'Incorrect password' })
+				res.json(null, false, { message: 'Incorrect password' })
 			}
 			console.log(`Deleting ${userMatch.local.password}`)
 			delete userMatch.local.password
