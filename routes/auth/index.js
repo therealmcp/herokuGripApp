@@ -51,8 +51,8 @@ router.post('/login',
 		// console.log(cleanUser)
 		User.findOne({ 'local.email': req.body.email }, (err, userMatch) => {
 			if (err) {
-				console.log(err)
-				return res.json(err)
+				console.log("Login error", err)
+				return res.status(404).send("Not found")
 			}
 			if (!userMatch) {
 				return res.json(null, false, { message: 'Incorrect email' })
