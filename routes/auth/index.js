@@ -52,13 +52,13 @@ router.post('/login',
 		User.findOne({ 'local.email': req.body.email }, (err, userMatch) => {
 			if (err) {
 				console.log(err)
-				return done(err)
+				return res.json(err)
 			}
 			if (!userMatch) {
-				return done(null, false, { message: 'Incorrect email' })
+				return res.json(null, false, { message: 'Incorrect email' })
 			}
 			if (!userMatch.checkPassword(req.body.password)) {
-				return done(null, false, { message: 'Incorrect password' })
+				return res.json(null, false, { message: 'Incorrect password' })
 			}
 			console.log(`Deleting ${userMatch.local.password}`)
 			delete userMatch.local.password
