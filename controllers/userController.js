@@ -10,13 +10,29 @@ module.exports = {
   findById: function(req, res) {
     db.User.findById(req.params.id)
     .populate("clients")
-    .then((res) => {
-      // console.log("clients res: --------", res)
-      return db.Client.find({ _id: {$in: res.clients.sessions} })
-      .populate("sessions")
+    .then((dbUser) => {
+      console.log("clients res: --------", res)
+    //  db.Client.find({ _id: {$in: res.clients.sessions} })
+    //   .populate("sessions").then(clientData => {
+    //     return clientData
+    //   })
       // .sort({'date': 1})
+      var clients = dbUser.clients.map(client => {
+        // console.log("session", session)
+        return db.Client.find( { _id: client._id } )
+        .populate("sessions")
+        .then(session => {
+          return session 
+        })
+      })
+      // console.log("dbSession..........", dbSession)
+      return Promise.all(clients).then(client => {
+        return { clients, dbUser }
+      })
     })
-    .then(dbUser => {res.json(dbUser)
+    .then(data => {
+      console.log("DB User: ", data)
+      res.json(data)
     })
     .catch(err => res.status(422).json(err));
   },
