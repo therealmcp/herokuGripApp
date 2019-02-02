@@ -11,23 +11,25 @@ module.exports = {
     db.User.findById(req.params.id)
     .populate("clients")
     .then((dbUser) => {
-      console.log("clients res: --------", res)
+      // console.log("clients res: --------", dbUser)
     //  db.Client.find({ _id: {$in: res.clients.sessions} })
     //   .populate("sessions").then(clientData => {
     //     return clientData
     //   })
       // .sort({'date': 1})
       var clients = dbUser.clients.map(client => {
-        // console.log("session", session)
+        // console.log("CLIENT", client)
         return db.Client.find( { _id: client._id } )
         .populate("sessions")
         .then(session => {
+          // console.log("SESSIONS", session)
           return session 
         })
       })
       // console.log("dbSession..........", dbSession)
       return Promise.all(clients).then(client => {
-        return { clients, dbUser }
+        console.log(client[0])
+        return client[0]
       })
     })
     .then(data => {
