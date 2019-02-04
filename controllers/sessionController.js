@@ -9,8 +9,15 @@ module.exports = {
   },
   findById: function (req, res) {
     db.Session.findById(req.params.id)
-      .then(dbSession => res.json(dbSession))
-      .catch(err => res.status(422).json(err));
+    .populate("workouts")
+    .then((res) => {
+      console.log("workouts res: --------", res)
+      db.Workout.find({ _id: {$in: res.workouts} })
+      return res
+    })
+    .then(dbUser => {res.json(dbUser)
+    })
+    .catch(err => res.status(422).json(err));
   },
   create: function (req, res) {
     db.Session.create(req.body)
